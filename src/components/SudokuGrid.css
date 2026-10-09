@@ -1,0 +1,82 @@
+.sudoku {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.new-puzzle {
+  font: 500 16px var(--sans);
+  padding: 8px 20px;
+  border-radius: 6px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.3s;
+
+  &:hover {
+    border-color: var(--accent-border);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.sudoku-grid {
+  --cell-size: min(48px, calc((100vw - 40px) / 9));
+
+  display: grid;
+  grid-template-columns: repeat(9, var(--cell-size));
+  grid-template-rows: repeat(9, var(--cell-size));
+  border: 2px solid var(--text-h);
+}
+
+.sudoku-cell {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+  font: 500 calc(var(--cell-size) * 0.5) / 1 var(--sans);
+  text-align: center;
+  caret-color: transparent;
+
+  /* Typed-in numbers use the accent colour; starting numbers stay dark */
+  &:not(.given) {
+    color: var(--accent);
+  }
+  &.given {
+    font-weight: 700;
+    cursor: default;
+  }
+
+  &:focus {
+    outline: none;
+    background: var(--accent-bg);
+  }
+
+  /* Thick lines between 3x3 boxes */
+  &[data-col='2'],
+  &[data-col='5'] {
+    border-right: 2px solid var(--text-h);
+  }
+  &[data-row='2'],
+  &[data-row='5'] {
+    border-bottom: 2px solid var(--text-h);
+  }
+
+  /* Outer border handled by the grid */
+  &[data-col='8'] {
+    border-right: 0;
+  }
+  &[data-row='8'] {
+    border-bottom: 0;
+  }
+}
