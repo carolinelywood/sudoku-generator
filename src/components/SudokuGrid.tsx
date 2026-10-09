@@ -1,13 +1,16 @@
-import { useState } from "react";
-import { generateSudoku } from "../utilities/sudoku";
 import "./SudokuGrid.css";
 
 const SIZE = 9;
 
-function SudokuGrid() {
-  const [cells, setCells] = useState<string[]>(() => Array(SIZE * SIZE).fill(""));
-  const [givens, setGivens] = useState<boolean[]>(() => Array(SIZE * SIZE).fill(false));
-
+function SudokuGrid({
+  cells,
+  givens,
+  setCells,
+}: {
+  cells: string[];
+  givens: boolean[];
+  setCells: React.Dispatch<React.SetStateAction<string[]>>;
+}) {
   const handleChange = (index: number, value: string) => {
     if (givens[index]) return;
     const digit = value.replace(/[^1-9]/g, "").slice(-1);
@@ -16,12 +19,6 @@ function SudokuGrid() {
       next[index] = digit;
       return next;
     });
-  };
-
-  const handleNewPuzzle = () => {
-    const { puzzle } = generateSudoku();
-    setCells(puzzle.map((n) => (n === 0 ? "" : String(n))));
-    setGivens(puzzle.map((n) => n !== 0));
   };
 
   return (
@@ -47,9 +44,6 @@ function SudokuGrid() {
           );
         })}
       </div>
-      <button type="button" className="new-puzzle" onClick={handleNewPuzzle}>
-        New puzzle
-      </button>
     </div>
   );
 }
