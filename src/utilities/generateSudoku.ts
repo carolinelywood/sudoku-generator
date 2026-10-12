@@ -1,23 +1,11 @@
-/** A 9x9 board stored row by row; 0 means an empty cell. */
-export type Board = number[];
-
-export type Difficulty = "easy" | "medium" | "hard";
-
-export interface Puzzle {
-  puzzle: Board;
-  solution: Board;
-}
-
-const SIZE = 9;
-const BOX = 3;
-const CELLS = SIZE * SIZE;
-
-/** Target number of givens left on the board for each difficulty. */
-const CLUES: Record<Difficulty, number> = {
-  easy: 40,
-  medium: 32,
-  hard: 26,
-};
+import {
+  BOX,
+  CELLS,
+  CLUES,
+  SIZE,
+  type Difficulty,
+  type Puzzle,
+} from "../constants";
 
 function shuffle<T>(items: T[]): T[] {
   const result = [...items];
@@ -28,7 +16,7 @@ function shuffle<T>(items: T[]): T[] {
   return result;
 }
 
-function canPlace(board: Board, index: number, digit: number): boolean {
+function canPlace(board: number[], index: number, digit: number): boolean {
   const row = Math.floor(index / SIZE);
   const col = index % SIZE;
   const boxRow = row - (row % BOX);
@@ -45,7 +33,7 @@ function canPlace(board: Board, index: number, digit: number): boolean {
 }
 
 /** Fills the board in place with a random complete solution. */
-function fillBoard(board: Board): boolean {
+function fillBoard(board: number[]): boolean {
   const index = board.indexOf(0);
   if (index === -1) return true;
 
@@ -60,7 +48,7 @@ function fillBoard(board: Board): boolean {
 }
 
 /** Counts solutions of the board, stopping once `limit` is reached. */
-function countSolutions(board: Board, limit = 2): number {
+function countSolutions(board: number[], limit = 2): number {
   const index = board.indexOf(0);
   if (index === -1) return 1;
 
@@ -82,8 +70,8 @@ function countSolutions(board: Board, limit = 2): number {
  * is undone if it would allow more than one solution. Hard puzzles may end up
  * with a few more clues than the target if no further cell can be removed.
  */
-export function generateSudoku(difficulty: Difficulty = "medium"): Puzzle {
-  const solution: Board = Array(CELLS).fill(0);
+export function generateSudoku(difficulty: Difficulty = "easy"): Puzzle {
+  const solution: number[] = Array(CELLS).fill(0);
   fillBoard(solution);
 
   const puzzle = [...solution];

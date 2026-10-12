@@ -1,20 +1,25 @@
-import { generateSudoku } from "../utilities/sudoku";
+import { generateSudoku } from "../utilities/generateSudoku";
+import type { Dispatch, SetStateAction } from "react";
 
 export function NewPuzzleButton({
   setCells,
   setGivens,
+  setSolution,
 }: {
-  setCells: React.Dispatch<React.SetStateAction<string[]>>;
-  setGivens: React.Dispatch<React.SetStateAction<boolean[]>>;
+  setCells: Dispatch<SetStateAction<string[]>>;
+  setGivens: Dispatch<SetStateAction<boolean[]>>;
+  setSolution: Dispatch<SetStateAction<number[] | undefined>>;
 }) {
   const handleNewPuzzle = () => {
-    const { puzzle } = generateSudoku();
+    const { puzzle, solution } = generateSudoku();
     setCells(puzzle.map((n) => (n === 0 ? "" : String(n))));
+    //setCells(solution.map((n) => (n === 0 ? "" : String(n)))); //For testing
     setGivens(puzzle.map((n) => n !== 0));
+    setSolution(solution);
   };
 
   return (
-    <button type="button" className="new-puzzle" onClick={handleNewPuzzle}>
+    <button type="button" className="button" onClick={handleNewPuzzle}>
       New puzzle
     </button>
   );

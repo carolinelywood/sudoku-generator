@@ -1,15 +1,15 @@
+import { SIZE } from "../constants";
 import "./SudokuGrid.css";
+import type { Dispatch, SetStateAction } from "react";
 
-const SIZE = 9;
-
-function SudokuGrid({
+export function SudokuGrid({
   cells,
   givens,
   setCells,
 }: {
   cells: string[];
   givens: boolean[];
-  setCells: React.Dispatch<React.SetStateAction<string[]>>;
+  setCells: Dispatch<SetStateAction<string[]>>;
 }) {
   const handleChange = (index: number, value: string) => {
     if (givens[index]) return;
@@ -47,5 +47,3 @@ function SudokuGrid({
     </div>
   );
 }
-
-export default SudokuGrid;
