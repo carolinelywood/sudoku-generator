@@ -4,19 +4,12 @@ This is a single-page app which allows the user to generate a new sudoku puzzle 
 
 ## Getting Started
 
-To install dependencies, run:
+To install dependencies, run `npm install`
 
-`npm install`
+To start the app, run `npm run dev` and navigate to `http://localhost:5173`
 
-To start the app, run
+## TODO
 
-`npm run dev`
-
-and navigate to `http://localhost:5173`
-
-## Future Improvements
-
-- Add a fun animation when the puzzle has been solved successfully
 - Display info messages when the puzzle is incomplete or wrong
   - Highlight incorrect/incomplete cells
 - Allow user to select difficulty

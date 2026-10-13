@@ -8,7 +8,7 @@ export function NewPuzzleButton({
 }: {
   setCells: Dispatch<SetStateAction<string[]>>;
   setGivens: Dispatch<SetStateAction<boolean[]>>;
-  setSolution: Dispatch<SetStateAction<number[] | undefined>>;
+  setSolution: Dispatch<SetStateAction<number[]>>;
 }) {
   const handleNewPuzzle = () => {
     const { puzzle, solution } = generateSudoku();

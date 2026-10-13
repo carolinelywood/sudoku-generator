@@ -22,28 +22,26 @@ export function SudokuGrid({
   };
 
   return (
-    <div className="sudoku">
-      <div className="sudoku-grid" role="grid" aria-label="Sudoku grid">
-        {cells.map((value, index) => {
-          const row = Math.floor(index / SIZE);
-          const col = index % SIZE;
-          return (
-            <input
-              key={index}
-              className={givens[index] ? "sudoku-cell given" : "sudoku-cell"}
-              data-row={row}
-              data-col={col}
-              type="text"
-              inputMode="numeric"
-              maxLength={1}
-              value={value}
-              readOnly={givens[index]}
-              aria-label={`Row ${row + 1}, column ${col + 1}`}
-              onChange={(e) => handleChange(index, e.target.value)}
-            />
-          );
-        })}
-      </div>
+    <div className="sudoku-grid" role="grid" aria-label="Sudoku grid">
+      {cells.map((value, index) => {
+        const row = Math.floor(index / SIZE);
+        const col = index % SIZE;
+        return (
+          <input
+            key={index}
+            className={givens[index] ? "sudoku-cell given" : "sudoku-cell"}
+            data-row={row}
+            data-col={col}
+            type="text"
+            inputMode="numeric"
+            maxLength={1}
+            value={value}
+            readOnly={givens[index]}
+            aria-label={`Row ${row + 1}, column ${col + 1}`}
+            onChange={(e) => handleChange(index, e.target.value)}
+          />
+        );
+      })}
     </div>
   );
 }
