@@ -37,7 +37,7 @@ function App() {
         <CheckSolutionButton
           cells={cells}
           solution={solution}
-          onSolved={handlePuzzleSolved}
+          onSolve={handlePuzzleSolved}
         />
       </section>
       {confettiBurst > 0 && (

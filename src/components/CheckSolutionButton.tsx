@@ -3,16 +3,16 @@ import { checkSolution } from "../utilities/checkSolution";
 export function CheckSolutionButton({
   cells,
   solution,
-  onSolved,
+  onSolve,
 }: {
   cells: string[];
   solution: number[];
-  onSolved: () => void;
+  onSolve: () => void;
 }) {
   const handleCheckSolution = () => {
     const result = checkSolution(cells, solution);
     if (result === "solved") {
-      onSolved();
+      onSolve();
     }
     console.log("result: ", result);
   };
