@@ -8,9 +8,7 @@ import { SolvedConfetti } from "./components/SolvedConfetti";
 
 function App() {
   const [cells, setCells] = useState<string[]>(() => Array(CELLS).fill(""));
-  const [givens, setGivens] = useState<boolean[]>(() =>
-    Array(CELLS).fill(false),
-  );
+  const [puzzle, setPuzzle] = useState<number[]>(() => Array(CELLS).fill(0));
   const [solution, setSolution] = useState<number[]>([]);
   const [confettiBurst, setConfettiBurst] = useState(0);
   const [winMessage, setWinMessage] = useState<"shown" | "hiding" | null>(null);
@@ -28,11 +26,11 @@ function App() {
   return (
     <>
       <section id="center">
-        <SudokuGrid cells={cells} givens={givens} setCells={setCells} />
+        <SudokuGrid cells={cells} puzzle={puzzle} setCells={setCells} />
 
         <NewPuzzleButton
           setCells={setCells}
-          setGivens={setGivens}
+          setPuzzle={setPuzzle}
           setSolution={setSolution}
         />
 

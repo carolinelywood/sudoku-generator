@@ -1,75 +1,19 @@
-import {
-  BOX,
-  CELLS,
-  CLUES,
-  SIZE,
-  type Difficulty,
-  type Puzzle,
-} from "../constants";
-
-function shuffle<T>(items: T[]): T[] {
-  const result = [...items];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
-
-function canPlace(board: number[], index: number, digit: number): boolean {
-  const row = Math.floor(index / SIZE);
-  const col = index % SIZE;
-  const boxRow = row - (row % BOX);
-  const boxCol = col - (col % BOX);
-
-  for (let i = 0; i < SIZE; i++) {
-    if (board[row * SIZE + i] === digit) return false;
-    if (board[i * SIZE + col] === digit) return false;
-    const r = boxRow + Math.floor(i / BOX);
-    const c = boxCol + (i % BOX);
-    if (board[r * SIZE + c] === digit) return false;
-  }
-  return true;
-}
-
-/** Fills the board in place with a random complete solution. */
-function fillBoard(board: number[]): boolean {
-  const index = board.indexOf(0);
-  if (index === -1) return true;
-
-  for (const digit of shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9])) {
-    if (canPlace(board, index, digit)) {
-      board[index] = digit;
-      if (fillBoard(board)) return true;
-      board[index] = 0;
-    }
-  }
-  return false;
-}
-
-/** Counts solutions of the board, stopping once `limit` is reached. */
-function countSolutions(board: number[], limit = 2): number {
-  const index = board.indexOf(0);
-  if (index === -1) return 1;
-
-  let count = 0;
-  for (let digit = 1; digit <= SIZE && count < limit; digit++) {
-    if (canPlace(board, index, digit)) {
-      board[index] = digit;
-      count += countSolutions(board, limit - count);
-      board[index] = 0;
-    }
-  }
-  return count;
-}
+import { CELLS, CLUES, type Difficulty, type Puzzle } from "../constants";
+import { countSolutions, fillBoard, shuffle } from "./helpers";
 
 /**
+ *
+ * @param difficulty - The difficulty of the puzzle, which determines how many cells are pre-filled
+ * @returns puzzle - The initial array of cells when the puzzle is generated
+ *          solution - The correct solution to the puzzle
+ *
  * Generates a random Sudoku puzzle with exactly one solution.
  *
  * Cells are removed from a random full solution one at a time, and a removal
  * is undone if it would allow more than one solution. Hard puzzles may end up
  * with a few more clues than the target if no further cell can be removed.
  */
+
 export function generateSudoku(difficulty: Difficulty = "easy"): Puzzle {
   const solution: number[] = Array(CELLS).fill(0);
   fillBoard(solution);

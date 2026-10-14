@@ -32,27 +32,43 @@ function boxes(board: number[]) {
 /** Brute-force solution counter, kept separate from the generator's own. */
 /** TODO: Revise this? */
 function countSolutions(board: number[], limit = 2): number {
-  const index = board.indexOf(0);
-  if (index === -1) return 1;
-
-  const row = Math.floor(index / SIZE);
-  const col = index % SIZE;
-  const box = Math.floor(row / BOX) * BOX + Math.floor(col / BOX);
-  const used = new Set([
-    ...rows(board)[row],
-    ...columns(board)[col],
-    ...boxes(board)[box],
-  ]);
+  // Branch on the empty cell with the fewest possible digits, which keeps the
+  // search small enough to check hard puzzles quickly
+  let bestIndex = -1;
+  let bestCandidates: number[] = [];
+  for (let index = 0; index < CELLS; index++) {
+    if (board[index] !== 0) continue;
+    const candidates = candidatesFor(board, index);
+    if (bestIndex === -1 || candidates.length < bestCandidates.length) {
+      bestIndex = index;
+      bestCandidates = candidates;
+      if (candidates.length <= 1) break;
+    }
+  }
+  if (bestIndex === -1) return 1;
 
   let count = 0;
-  for (const digit of DIGITS) {
+  for (const digit of bestCandidates) {
     if (count >= limit) break;
-    if (used.has(digit)) continue;
-    board[index] = digit;
+    board[bestIndex] = digit;
     count += countSolutions(board, limit - count);
-    board[index] = 0;
+    board[bestIndex] = 0;
   }
   return count;
+}
+
+function candidatesFor(board: number[], index: number): number[] {
+  const row = Math.floor(index / SIZE);
+  const col = index % SIZE;
+  const boxRow = row - (row % BOX);
+  const boxCol = col - (col % BOX);
+  const used = new Set<number>();
+  for (let i = 0; i < SIZE; i++) {
+    used.add(board[row * SIZE + i]);
+    used.add(board[i * SIZE + col]);
+    used.add(board[(boxRow + Math.floor(i / BOX)) * SIZE + boxCol + (i % BOX)]);
+  }
+  return DIGITS.filter((digit) => !used.has(digit));
 }
 
 describe("generateSudoku", () => {

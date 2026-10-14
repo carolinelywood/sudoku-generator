@@ -4,15 +4,15 @@ import type { Dispatch, SetStateAction } from "react";
 
 export function SudokuGrid({
   cells,
-  givens,
+  puzzle,
   setCells,
 }: {
   cells: string[];
-  givens: boolean[];
+  puzzle: number[];
   setCells: Dispatch<SetStateAction<string[]>>;
 }) {
   const handleChange = (index: number, value: string) => {
-    if (givens[index]) return;
+    if (puzzle[index] !== 0) return;
     const digit = value.replace(/[^1-9]/g, "").slice(-1);
     setCells((prev) => {
       const next = [...prev];
@@ -26,17 +26,18 @@ export function SudokuGrid({
       {cells.map((value, index) => {
         const row = Math.floor(index / SIZE);
         const col = index % SIZE;
+        const isGiven = puzzle[index] !== 0;
         return (
           <input
             key={index}
-            className={givens[index] ? "sudoku-cell given" : "sudoku-cell"}
+            className={isGiven ? "sudoku-cell given" : "sudoku-cell"}
             data-row={row}
             data-col={col}
             type="text"
             inputMode="numeric"
             maxLength={1}
             value={value}
-            readOnly={givens[index]}
+            readOnly={isGiven}
             aria-label={`Row ${row + 1}, column ${col + 1}`}
             onChange={(e) => handleChange(index, e.target.value)}
           />
