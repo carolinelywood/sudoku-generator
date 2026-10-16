@@ -16,6 +16,5 @@ To run tests, run `npm test`
   - Highlight incorrect/incomplete cells
 - Allow user to select difficulty
 - Add support for different sized grids and allow user to select the size
-- Add component tests
 - Add Playwright tests
 - Update styling (currently using vite default)
