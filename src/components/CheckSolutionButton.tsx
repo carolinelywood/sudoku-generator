@@ -1,20 +1,17 @@
 import { checkSolution } from "../utilities/checkSolution";
+import type { Result } from "../constants";
 
 export function CheckSolutionButton({
   cells,
   solution,
-  onSolve,
+  onCheck,
 }: {
   cells: string[];
   solution: number[];
-  onSolve: () => void;
+  onCheck: (result: Result) => void;
 }) {
   const handleCheckSolution = () => {
-    const result = checkSolution(cells, solution);
-    if (result === "solved") {
-      onSolve();
-    }
-    console.log("result: ", result);
+    onCheck(checkSolution(cells, solution));
   };
 
   return (

@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
 import "./App.css";
 import { CheckSolutionButton } from "./components/CheckSolutionButton";
 import { NewPuzzleButton } from "./components/NewPuzzleButton";
 import { SudokuGrid } from "./components/SudokuGrid";
-import { CELLS } from "./constants";
+import { CELLS, type Result } from "./constants";
 import { SolvedConfetti } from "./components/SolvedConfetti";
+
+const FEEDBACK = {
+  incomplete: {
+    message: "Missing numbers",
+    hint: "Fill in all of the squares",
+  },
+  incorrect: { message: "Wrong answer", hint: "Try again!" },
+};
 
 function App() {
   const [cells, setCells] = useState<string[]>(() => Array(CELLS).fill(""));
@@ -12,10 +20,23 @@ function App() {
   const [solution, setSolution] = useState<number[]>([]);
   const [confettiBurst, setConfettiBurst] = useState(0);
   const [winMessage, setWinMessage] = useState<"shown" | "hiding" | null>(null);
+  const [feedback, setFeedback] = useState<keyof typeof FEEDBACK>("incomplete");
+  const [showFeedback, setShowFeedback] = useState(false);
 
-  const handlePuzzleSolved = () => {
-    setConfettiBurst((n) => n + 1);
-    setWinMessage("shown");
+  const updateCells: Dispatch<SetStateAction<string[]>> = (value) => {
+    setCells(value);
+    setShowFeedback(false);
+  };
+
+  const handleCheck = (result: Result) => {
+    if (result === "solved") {
+      setShowFeedback(false);
+      setConfettiBurst((n) => n + 1);
+      setWinMessage("shown");
+    } else {
+      setFeedback(result);
+      setShowFeedback(true);
+    }
   };
 
   const handleConfettiComplete = () => {
@@ -26,10 +47,21 @@ function App() {
   return (
     <>
       <section id="center">
-        <SudokuGrid cells={cells} puzzle={puzzle} setCells={setCells} />
+        <div
+          className={
+            showFeedback ? "unsolved-container shown" : "unsolved-container"
+          }
+        >
+          <p className="unsolved-message" role="status">
+            {FEEDBACK[feedback].message}
+          </p>
+          <p className="unsolved-hint">{FEEDBACK[feedback].hint}</p>
+        </div>
+
+        <SudokuGrid cells={cells} puzzle={puzzle} setCells={updateCells} />
 
         <NewPuzzleButton
-          setCells={setCells}
+          setCells={updateCells}
           setPuzzle={setPuzzle}
           setSolution={setSolution}
         />
@@ -37,7 +69,7 @@ function App() {
         <CheckSolutionButton
           cells={cells}
           solution={solution}
-          onSolve={handlePuzzleSolved}
+          onCheck={handleCheck}
         />
       </section>
       {confettiBurst > 0 && (

@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CheckSolutionButton } from "./CheckSolutionButton";
 
-const mockOnSolve = vi.fn();
+const mockOnCheck = vi.fn();
 
 const mockCheckSolution = vi.hoisted(() => vi.fn());
 vi.mock("../utilities/checkSolution", () => ({
@@ -18,7 +18,7 @@ function renderButton({ cells = mockCells, solution = mockSolution }) {
     <CheckSolutionButton
       cells={cells}
       solution={solution}
-      onSolve={mockOnSolve}
+      onCheck={mockOnCheck}
     />,
   );
 }
@@ -40,7 +40,7 @@ describe("Check Solution button", () => {
     expect(button).toBeVisible();
   });
 
-  it("calls onSolve when the puzzle is solved", async () => {
+  it("calls onCheck with the result when the puzzle is solved", async () => {
     mockCheckSolution.mockReturnValue("solved");
 
     renderButton({});
@@ -51,10 +51,11 @@ describe("Check Solution button", () => {
       mockCells,
       mockSolution,
     );
-    expect(mockOnSolve).toHaveBeenCalledOnce();
+    expect(mockOnCheck).toHaveBeenCalledOnce();
+    expect(mockOnCheck).toHaveBeenCalledWith("solved");
   });
 
-  it("does not call onSolve when the puzzle is incomplete", async () => {
+  it("calls onCheck with the result when the puzzle is incomplete", async () => {
     mockCheckSolution.mockReturnValue("incomplete");
 
     renderButton({});
@@ -62,10 +63,11 @@ describe("Check Solution button", () => {
       screen.getByRole("button", { name: "Check solution" }),
     );
     expect(mockCheckSolution).toHaveBeenCalledOnce();
-    expect(mockOnSolve).not.toHaveBeenCalled();
+    expect(mockOnCheck).toHaveBeenCalledOnce();
+    expect(mockOnCheck).toHaveBeenCalledWith("incomplete");
   });
 
-  it("does not call onSolve when the puzzle is incorrect", async () => {
+  it("calls onCheck with the result when the puzzle is incorrect", async () => {
     mockCheckSolution.mockReturnValue("incorrect");
 
     renderButton({});
@@ -73,6 +75,7 @@ describe("Check Solution button", () => {
       screen.getByRole("button", { name: "Check solution" }),
     );
     expect(mockCheckSolution).toHaveBeenCalledOnce();
-    expect(mockOnSolve).toHaveBeenCalledTimes(0);
+    expect(mockOnCheck).toHaveBeenCalledOnce();
+    expect(mockOnCheck).toHaveBeenCalledWith("incorrect");
   });
 });
