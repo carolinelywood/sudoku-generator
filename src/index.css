@@ -1,15 +1,18 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
+  /* Colour scheme based on coral #F26659, with warm neutrals to match */
+  --text: #7a5a56;
+  --text-h: #2b1a18;
   --bg: #fff;
-  --border: #e5e4e7;
+  --border: #f3ddd9;
   --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
+  --accent: #f26659;
+  --accent-text: #b83a2e;
+  --accent-bg: rgba(242, 102, 89, 0.12);
+  --accent-border: rgba(242, 102, 89, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    rgba(43, 26, 24, 0.12) 0 10px 15px -3px,
+    rgba(43, 26, 24, 0.06) 0 4px 6px -2px;
 
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
   --heading: system-ui, "Segoe UI", Roboto, sans-serif;
@@ -78,7 +81,7 @@ p {
   font: 500 16px var(--sans);
   padding: 8px 20px;
   border-radius: 6px;
-  color: var(--accent);
+  color: var(--accent-text);
   background: var(--accent-bg);
   border: 2px solid transparent;
   cursor: pointer;

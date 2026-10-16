@@ -24,7 +24,7 @@
 
   /* Typed-in numbers use the accent colour; starting numbers stay dark */
   &:not(.given) {
-    color: var(--accent);
+    color: var(--accent-text);
   }
   &.given {
     font-weight: 700;
