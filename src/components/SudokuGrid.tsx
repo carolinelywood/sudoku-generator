@@ -22,7 +22,7 @@ export function SudokuGrid({
   };
 
   return (
-    <div className="sudoku-grid" role="grid" aria-label="Sudoku grid">
+    <div className="sudoku-grid" role="group" aria-label="Sudoku grid">
       {cells.map((value, index) => {
         const row = Math.floor(index / SIZE);
         const col = index % SIZE;

@@ -1,0 +1,14 @@
+{
+  "ci": {
+    "collect": { "staticDistDir": "./dist" },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "unused-javascript": "off",
+        "network-dependency-tree-insight": "off",
+        "render-blocking-insight": "off",
+        "render-blocking-resources": "off"
+      }
+    }
+  }
+}
