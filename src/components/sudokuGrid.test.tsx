@@ -33,7 +33,7 @@ function renderGrid(puzzle = TEST_PUZZLE) {
 
 describe("SudokuGrid component", () => {
   it("contains the correct number of cells", () => {
-    renderGrid(Array(CELLS).fill(0));
+    renderGrid(new Array<number>(CELLS).fill(0));
     expect(screen.getAllByRole("textbox")).toHaveLength(CELLS);
   });
 

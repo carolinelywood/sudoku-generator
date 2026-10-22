@@ -5,6 +5,10 @@ import { generateSudoku } from "./generateSudoku";
 const DIGITS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const difficulties = Object.keys(CLUES) as Difficulty[];
 
+// Generating a hard puzzle can take a few seconds, and longer while coverage
+// is being measured, so these tests get more than the default 5 seconds
+const GENERATE_TIMEOUT = 30_000;
+
 function rows(board: number[]) {
   return Array.from({ length: SIZE }, (_, r) =>
     board.slice(r * SIZE, (r + 1) * SIZE),
@@ -96,18 +100,26 @@ describe("generateSudoku", () => {
     });
   });
 
-  it.each(difficulties)("leaves the target number of clues for %s", (level) => {
-    const { puzzle } = generateSudoku(level);
-    const clues = puzzle.filter((value) => value !== 0).length;
-    // Hard puzzles can keep a few extra clues if no more can be removed
-    expect(clues).toBeGreaterThanOrEqual(CLUES[level]);
-    expect(clues).toBeLessThanOrEqual(CLUES[level] + 3);
-  });
+  it.each(difficulties)(
+    "leaves the target number of clues for %s",
+    (level) => {
+      const { puzzle } = generateSudoku(level);
+      const clues = puzzle.filter((value) => value !== 0).length;
+      // Hard puzzles can keep a few extra clues if no more can be removed
+      expect(clues).toBeGreaterThanOrEqual(CLUES[level]);
+      expect(clues).toBeLessThanOrEqual(CLUES[level] + 3);
+    },
+    GENERATE_TIMEOUT,
+  );
 
-  it.each(difficulties)("has exactly one solution for %s", (level) => {
-    const { puzzle } = generateSudoku(level);
-    expect(countSolutions([...puzzle])).toBe(1);
-  });
+  it.each(difficulties)(
+    "has exactly one solution for %s",
+    (level) => {
+      const { puzzle } = generateSudoku(level);
+      expect(countSolutions([...puzzle])).toBe(1);
+    },
+    GENERATE_TIMEOUT,
+  );
 
   it("generates different puzzles each time", () => {
     const first = generateSudoku().solution;
