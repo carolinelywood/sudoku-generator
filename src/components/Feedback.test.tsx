@@ -17,13 +17,13 @@ describe("Feedback component", () => {
   it("displays correct message when feedback is incorrect", () => {
     renderFeedback({ feedback: "incorrect" });
     expect(screen.getByText("Wrong answer")).toBeVisible();
-    expect(screen.getByText("Try again!")).toBeVisible();
+    expect(screen.getByText("Click to see incorrect cells")).toBeVisible();
   });
 
   it("displays correct message when feedback is incomplete", () => {
     renderFeedback({ feedback: "incomplete" });
     expect(screen.getByText("Missing numbers")).toBeVisible();
-    expect(screen.getByText("Fill in all of the squares")).toBeVisible();
+    expect(screen.getByText("Click to see incomplete cells")).toBeVisible();
   });
 
   it("is hidden when showFeedback is false", () => {

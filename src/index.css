@@ -9,6 +9,9 @@
   --accent-text: #b83a2e;
   --accent-bg: rgba(242, 102, 89, 0.12);
   --accent-border: rgba(242, 102, 89, 0.5);
+  --error: #b8174a;
+  --error-bg: rgba(184, 23, 74, 0.08);
+  --error-border: rgba(184, 23, 74, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
   --shadow:
     rgba(43, 26, 24, 0.12) 0 10px 15px -3px,
