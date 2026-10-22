@@ -1,5 +1,11 @@
 name: Lighthouse CI
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   lhci:
     runs-on: ubuntu-latest
