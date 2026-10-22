@@ -1,22 +1,24 @@
 .unsolved-message {
-  background: var(--bg);
-  color: var(--text);
+  color: var(--error);
   font: 400 24px var(--sans);
   margin-bottom: 8px;
 }
 
 .unsolved-hint {
-  background: var(--bg);
-  color: var(--text);
+  color: var(--accent-text);
   font: 700 14px var(--sans);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .unsolved-container {
   padding: 16px 24px;
   border: 2px solid transparent;
-  border-color: var(--accent-border);
+  border-color: var(--error-border);
   border-radius: 6px;
-  background: var(--bg);
+  background: var(--error-bg);
   color: var(--text);
   font: 500 16px var(--sans);
   white-space: nowrap;
