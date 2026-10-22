@@ -8,6 +8,9 @@
   --color-accent: #f26659;
   --color-text-h: #2b1a18;
   --color-border: #f3ddd9;
+  --color-error: #b8174a;
+  --color-error-bg: rgba(184, 23, 74, 0.08);
+  --color-error-border: rgba(184, 23, 74, 0.5);
   --shadow-box-shadow:
     rgba(43, 26, 24, 0.12) 0 10px 15px -3px,
     rgba(43, 26, 24, 0.06) 0 4px 6px -2px;
