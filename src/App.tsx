@@ -9,8 +9,12 @@ import { Feedback } from "./components/Feedback";
 import { WinMessage } from "./components/WinMessage";
 
 function App() {
-  const [cells, setCells] = useState<string[]>(() => Array(CELLS).fill(""));
-  const [puzzle, setPuzzle] = useState<number[]>(() => Array(CELLS).fill(0));
+  const [cells, setCells] = useState<string[]>(() =>
+    new Array<string>(CELLS).fill(""),
+  );
+  const [puzzle, setPuzzle] = useState<number[]>(() =>
+    new Array<number>(CELLS).fill(0),
+  );
   const [solution, setSolution] = useState<number[]>([]);
   const [confettiBurst, setConfettiBurst] = useState(0);
   const [winMessageVisible, setWinMessageVisible] = useState<boolean | null>(

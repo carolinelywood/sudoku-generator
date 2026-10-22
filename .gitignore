@@ -25,3 +25,6 @@ dist-ssr
 
 # Lighthouse CI reports
 .lighthouseci
+
+# Test coverage reports
+coverage

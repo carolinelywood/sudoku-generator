@@ -15,7 +15,7 @@ import { countSolutions, fillBoard, shuffle } from "./helpers";
  */
 
 export function generateSudoku(difficulty: Difficulty = "easy"): Puzzle {
-  const solution: number[] = Array(CELLS).fill(0);
+  const solution = new Array<number>(CELLS).fill(0);
   fillBoard(solution);
 
   const puzzle = [...solution];
