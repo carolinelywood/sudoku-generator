@@ -1,5 +1,5 @@
 import { FEEDBACK, type FeedbackType } from "../constants";
-import "./Feedback.css";
+import clsx from "clsx";
 
 export function Feedback({
   showFeedback,
@@ -10,14 +10,16 @@ export function Feedback({
 }) {
   return (
     <div
-      className={
-        showFeedback ? "unsolved-container shown" : "unsolved-container"
-      }
+      className={clsx(
+        "rounded-md border-2 border-accent-border px-6 py-4",
+        "transition-[opacity,visibility] duration-600",
+        showFeedback ? "visible opacity-100" : "invisible opacity-0",
+      )}
     >
-      <p className="unsolved-message" role="status">
+      <p className="mb-2 text-2xl" role="status">
         {FEEDBACK[feedback].message}
       </p>
-      <p className="unsolved-hint">{FEEDBACK[feedback].hint}</p>
+      <p className="text-sm font-bold">{FEEDBACK[feedback].hint}</p>
     </div>
   );
 }

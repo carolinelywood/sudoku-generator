@@ -1,5 +1,6 @@
 import { checkSolution } from "../utilities/checkSolution";
 import type { Result } from "../constants";
+import clsx from "clsx";
 
 export function CheckSolutionButton({
   cells,
@@ -17,9 +18,11 @@ export function CheckSolutionButton({
   return (
     <button
       type="button"
-      className="button"
+      className={clsx(
+        "rounded-md border-2 border-transparent bg-accent-bg px-5 py-2 font-medium text-accent-text transition-[border-color] duration-300 hover:cursor-pointer hover:border-accent-border focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+        solution.length === 0 && "invisible",
+      )}
       onClick={handleCheckSolution}
-      style={{ visibility: solution.length === 0 ? "hidden" : "visible" }}
     >
       Check solution
     </button>

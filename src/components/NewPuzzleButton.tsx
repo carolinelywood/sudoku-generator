@@ -19,7 +19,11 @@ export function NewPuzzleButton({
   };
 
   return (
-    <button type="button" className="button" onClick={handleNewPuzzle}>
+    <button
+      type="button"
+      className="rounded-md border-2 border-transparent bg-accent-bg px-5 py-2 font-medium text-accent-text transition-[border-color] duration-300 hover:cursor-pointer hover:border-accent-border focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      onClick={handleNewPuzzle}
+    >
       New puzzle
     </button>
   );
