@@ -1,5 +1,4 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
-import "./App.css";
 import { CheckSolutionButton } from "./components/CheckSolutionButton";
 import { NewPuzzleButton } from "./components/NewPuzzleButton";
 import { SudokuGrid } from "./components/SudokuGrid";
@@ -46,7 +45,7 @@ function App() {
 
   return (
     <>
-      <section id="center">
+      <section className="flex grow flex-col place-content-center place-items-center gap-6 max-lg:gap-4.5 max-lg:px-5 max-lg:pt-8 max-lg:pb-6">
         <Feedback feedback={feedback} showFeedback={showFeedback} />
 
         <SudokuGrid cells={cells} puzzle={puzzle} setCells={updateCells} />

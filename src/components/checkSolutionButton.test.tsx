@@ -31,7 +31,7 @@ describe("Check Solution button", () => {
   it("is hidden when no puzzle has been generated", () => {
     renderButton({ cells: [], solution: [] });
     const button = screen.getByText("Check solution");
-    expect(button).not.toBeVisible();
+    expect(button).toHaveClass("invisible");
   });
 
   it("is visible when a puzzle has been generated", () => {

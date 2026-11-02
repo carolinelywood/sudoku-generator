@@ -21,15 +21,14 @@ describe("WinMessage", () => {
   // The fades are CSS, which jsdom doesn't apply, so check the classes instead
   it("fades in while visible", () => {
     const message = renderWinMessage();
-    expect(message).toHaveClass("win-message");
-    expect(message).not.toHaveClass("hiding");
+    expect(message).toHaveClass("animate-fade-in");
+    expect(message).not.toHaveClass("animate-fade-out");
   });
 
   it("fades out once no longer visible", () => {
-    expect(renderWinMessage({ isVisible: false })).toHaveClass(
-      "win-message",
-      "hiding",
-    );
+    const message = renderWinMessage({ isVisible: false });
+    expect(message).toHaveClass("animate-fade-out");
+    expect(message).not.toHaveClass("animate-fade-in");
   });
 
   it("asks to be removed when the fade-out finishes", () => {
